@@ -1,14 +1,14 @@
 import { connectMongoDb } from "@/dbConfig/dbConfig";
 import User from "@/models/userModel";
-import { error } from "console";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 import { sendEmail } from "@/helpers/mailer";
 
+connectMongoDb();
 export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
-    const { userName, email, password } = reqBody;
+    const { username, email, password } = reqBody;
 
     const user = await User.findOne({ email });
 
@@ -22,9 +22,8 @@ export async function POST(request: NextRequest) {
     const hashedPassword = await bcryptjs.hash(password, salt);
 
     // create new user object
-
     const newUser = new User({
-      userName,
+      username,
       email,
       password: hashedPassword,
     });

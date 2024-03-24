@@ -1,12 +1,9 @@
-import { timeStamp } from "console";
 import mongoose from "mongoose";
-import { unique } from "next/dist/build/utils";
-import { type } from "os";
 
 const userSchema = new mongoose.Schema({
-  userName: {
+  username: {
     type: String,
-    required: [true],
+    required: [true, "Enter USer name"],
     unique: [true],
   },
   email: {
